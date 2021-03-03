@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Card from '../components/Card';
+import Card from '../components/Card/Card';
 
 class List extends Component {
   constructor () {
@@ -11,7 +11,7 @@ class List extends Component {
   }
 
   async componentDidMount () {
-    const movies = await fetch('../assets/data.json');
+    const movies = await fetch('../../assets/data.json');
     const moviesJSON = await movies.json();
 
     if (moviesJSON) {
@@ -28,7 +28,15 @@ class List extends Component {
     if (loading) {
       return <div>Loading...</div>;
     }
-    return data.map(movie => <Card key={movie.id} movie={ movie } />);
+    return (
+      <div className='row'>
+        {data.map(movie => 
+          <div key={movie.id} className='col-sm-2'>
+            <Card movie={ movie } />
+          </div>
+        )}
+      </div>
+    );
   }
 }
 
